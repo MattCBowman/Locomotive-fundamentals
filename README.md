@@ -1,6 +1,6 @@
 # LocomotiveCMS Guide
 
-This book is incomplete and should evolve in the future. Any contribution is very welcomed !
+This book is incomplete and should evolve in the future. Any contribution is very welcomed!
 
 For any questions or advices about this book, ask [mail@geraudmathe.com](mailto:mail@geraudmathe.com), and if you need support from LocomotiveCMS team, ask [support@locomotivecms.com](mailto:support@locomotivecms.com).
 
@@ -8,9 +8,9 @@ For any questions or advices about this book, ask [mail@geraudmathe.com](mailto:
 ## Summary
 
 1. __[Foreword](#foreword)__
-  *  __[Why this guide ?](#foreword_1)__
+  *  __[Why this guide?](#foreword_1)__
   *  __[Philosophy](#foreword_2)__
-  *  __[Why you should use LocomotiveCMS ?](#foreword_3)__
+  *  __[Why you should use LocomotiveCMS?](#foreword_3)__
   *  __[Assumptions](#foreword_4)__
   *  __[Organization of this book](#foreword_5)__
 2. __[Overview](#overview)__
@@ -21,7 +21,7 @@ For any questions or advices about this book, ask [mail@geraudmathe.com](mailto:
   *  __[Templating Logic](#templating_1)__
   *  __[Liquid syntax](#templating_2)__
   *  __[Creating a page](#templating_3)__
-  *  __[Recipe : Create a RSS feed](#rss_feed)__
+  *  __[Recipe: Create a RSS feed](#rss_feed)__
 5. __[Models](#models)__
   *  __[Basics](#models_basics)__
   *  __[Models mapping](#models_mapping)__
@@ -44,7 +44,7 @@ For any questions or advices about this book, ask [mail@geraudmathe.com](mailto:
 ##Foreword
 
 <a name="foreword_1"></a>
-### Why this guide ?
+### Why this guide?
 
 There is already an official documentation reference, which lists almost everything. Still, a pragmatic guide to LocomotiveCMS is missing, especially for beginners.
 
@@ -71,7 +71,7 @@ However, I stayed true to basic requirements of my dream CMS and never moved awa
 - The code of LocomotiveCMS should not "smell". Thus, refactoring the code is a continuous process during all the development. That also means using standard components like for instance "Devise" for the authentication part.
 
 <a name="foreword_3"></a>
-### Why should you use LocomotiveCMS ?
+### Why should you use LocomotiveCMS?
 
 LocomotiveCMS is a CMS that has been created with a single core concept: keep it simple!
 
@@ -119,7 +119,7 @@ A Rails engine is an application packaged as a ruby gem that is able to be run o
 </i>
 ([more about engines](http://guides.rubyonrails.org/engines.html))
 
-What's inside ?
+What's inside?
 
 - [Rails 3](http://www.rubyonrails.org)
 - [Mongoid](http://www.mongoid.org)
@@ -146,7 +146,7 @@ You have out of the box:
 <a name="getting_something_running"></a>
 ## Getting something running in 5 minutes
 
-TODO: définir avec géraud et didier ce que l'on fait dans cette app, liste des choses à voir : editable texts, models, templates (héritage), tags liquid de base, … ?
+TODO: définir avec géraud et didier ce que l'on fait dans cette app, liste des choses à voir: editable texts, models, templates (héritage), tags liquid de base, …?
 
 il n'y a pas de template de base, sauf si on achète loco editor là il y en a mais sinon non, pas dans la version 2.0
 
@@ -161,7 +161,7 @@ il n'y a pas de template de base, sauf si on achète loco editor là il y en a m
 
 The logic in LocomotiveCMS differs a bit from what you are used to, so it may be weird a first, but it's actually very simple.
 
-In the classic 'Rails way', you have the following architecture, with page content integrated in the application layout using the ``` yield ``` statement :
+In the classic 'Rails way', you have the following architecture, with page content integrated in the application layout using the ``` yield ``` statement:
 
     +- Views
         +- layout
@@ -171,14 +171,14 @@ In the classic 'Rails way', you have the following architecture, with page conte
             +- first page
             +- second page
 
-In Locomotive, it's a bit different :
+In Locomotive, it's a bit different:
 
     +- Pages
         +- index
             +- first page
             +- second page
 
-All pages inherit from index. This way, the index contains the application's master layout and the content of the index page. How do you re-use the layout without re-using the index page's content? By introducing ```{% block 'block_name' %} ... {% endblock %}``` : since all pages inherit from index, you declare blocks of content inside the layout (index), which will be overwritten in child pages. Here is a simple example:
+All pages inherit from index. This way, the index contains the application's master layout and the content of the index page. How do you re-use the layout without re-using the index page's content? By introducing ```{% block 'block_name' %} ... {% endblock %}```: since all pages inherit from index, you declare blocks of content inside the layout (index), which will be overwritten in child pages. Here is a simple example:
 
 Index page:
 
@@ -227,7 +227,7 @@ When you create a page, it automatically inherits from index, but you can also m
 
 ![Specifying parent](images/specifying_parent.png)
 
-By doing so, you can define as many levels as you want :
+By doing so, you can define as many levels as you want:
 
     +- Pages
         +- index
@@ -247,7 +247,7 @@ For example, how would you make "second page" extend "first page"?
             +- first page
             +- second page
 
-It's simple : ``` {% extends first_page %} ``` !
+It's simple: ``` {% extends first_page %} ``` !
 You specify the page you want to extend with its *slug*.
 
 src: http://doc.locomotivecms.com/templates/tags#extends-section
@@ -395,7 +395,7 @@ Then the sidebar:
 And finally the product_information snippet which uses the context "product":
 ```html
 <div class="product">
-{{ product.name }} :  {{ product.price }}$
+{{ product.name }}:  {{ product.price }}$
 </div>
 ```
 src: http://doc.locomotivecms.com/templates/tags#include-section
@@ -411,23 +411,23 @@ The liquid syntax is a templating engine based on a set of functions that allow 
 Liquid defines 2 types of markup, pretty close to what you are used to with Erb:
 
 
-**Output markup: matched pairs of curly brackets output the value of an object :**
+**Output markup: matched pairs of curly brackets output the value of an object:**
 
 Erb:
 
     <%= @product.name %>
 
-Liquid :
+Liquid:
 
     {{ product.name }}
 
 **Tag markup: matched pairs of curly brackets and percent, not resolved to text:**
 
-Erb :
+Erb:
 
     <% name = @product.name %>
 
-Liquid :
+Liquid:
 
     {% assign name with product.name %}
 
@@ -449,7 +449,7 @@ Available objects and their attributes are listed here: http://doc.locomotivecms
 
 **SEO purpose**
 
-You can either use the object ``` site ``` and have the same meta all over your website :
+You can either use the object ``` site ``` and have the same meta all over your website:
 
 ```html
 <html>
@@ -462,7 +462,7 @@ You can either use the object ``` site ``` and have the same meta all over your 
   </body>
 </html>
  ```
-Or you can define SEO meta for each ``` page ``` :
+Or you can define SEO meta for each ``` page ```:
 ```html
 <html>
   <head>
@@ -533,7 +533,7 @@ These meta values will then be available for use in the template with Liquid tag
   Defines whether or not this page should be a template for a model instance, see [this chapter](#models_templatize).
 
 
-- Published :
+- Published:
 
   Since only authenticated accounts can view unpublished pages, this allows debugging on a page in a deployed site.
 
@@ -645,7 +645,7 @@ The following types of attributes (fields) are available:
 
 Let's look at an overview of each one. The rendering of these types will be reviewed [later](#models_rendering).
 
-*Nota bene : you will encounter some unexplained properties. This is because they are common to all field types and will be covered later.*
+*Nota bene: you will encounter some unexplained properties. This is because they are common to all field types and will be covered later.*
 
 - Simple input:
 
@@ -700,7 +700,7 @@ Let's look at an overview of each one. The rendering of these types will be revi
 
 The other fields specifying a relationship with an other model (```belongs_to```, ```has_many``` and ```many_to_many```) will be explained in the next section, [Models mapping](#models_mapping).
 
-**Common fields properties :**
+**Common fields properties:**
 
 When you define an attribute (or a field) for your model, you have some properties which are specific for each kind of attribute (detailed previously), and some which are common to every one.
 
@@ -886,7 +886,7 @@ In the previous dummy page where we tested the belongs_to relationship, we add a
   Reviews:
   <br>
   {% for review in book.reviews %}
-    Published in {{ review.journal }} : {{ review.content }}
+    Published in {{ review.journal }}: {{ review.content }}
   {% endfor %}
 {% endfor %}
 ```
@@ -925,34 +925,34 @@ But here you can define the ```Inverse of``` (itself) which is ```books```, so d
 
 ![books m2m update](images/manytomany_books.png)
 
-Then save the ```books``` model and go back editing ```tags``` model : magic, the ```Inverse of``` attribute of the many_to_many field ```books``` is field with the appropriate value ```tags``` :
+Then save the ```books``` model and go back editing ```tags``` model: magic, the ```Inverse of``` attribute of the many_to_many field ```books``` is field with the appropriate value ```tags```:
 
 
 ![tags inverse of update](images/manytomany_tags_inverseof.png)
 
 Here it is, your many to many is settled.
 
-Now we will add some tags to our book, but unlike the previous cases, you can't create a tag entry in the book entry page :
+Now we will add some tags to our book, but unlike the previous cases, you can't create a tag entry in the book entry page:
 
 ![m2m enable ui problem](images/manytomany_enableui.png)
 
-We have to create a new tag entry separately, and then add it when editing the book entry. So we do :
+We have to create a new tag entry separately, and then add it when editing the book entry. So we do:
 
 ![m2m tag available in book](images/manytomany_tag_entrie.png)
 
 
 You don't have to select here the book entry you want to connect the tag.
-And when we go back to the book entry we were editing, the tag is available in the select list :
+And when we go back to the book entry we were editing, the tag is available in the select list:
 
 ![m2m tag available in book](images/manytomany_books_tags_available.png)
 
-So let's (finally !) add our tag to our book, save, and check if everything is okay back in frontend :
+So let's (finally !) add our tag to our book, save, and check if everything is okay back in frontend:
 
 ```
 {% for book in contents.books %}
   {{ book.title }} written by {{ book.writer.name }} is a great lecture.
   <br>
-  Tags :
+  Tags:
   <br>
   {% for tag in book.tags %}
     "{{ tag.text }}"
@@ -960,19 +960,19 @@ So let's (finally !) add our tag to our book, save, and check if everything is o
 {% endfor %}
 ```
 
-displays :
+displays:
 
 ```
 Responsive Web design written by Ethan Marcotte is a great lecture.
-Tags :
+Tags:
 "responsive"
 ```
 
-And if we do the opposite, it's okay too (as expected after so much pain) :
+And if we do the opposite, it's okay too (as expected after so much pain):
 
 ```
 {% for tag in contents.tags %}
-  Tag : "{{ tag.text }}" is related to the following books :
+  Tag: "{{ tag.text }}" is related to the following books:
   <br>
   {% for book in tag.books %}
     {{ book.title }} written by {{ book.writer.name }}
@@ -980,10 +980,10 @@ And if we do the opposite, it's okay too (as expected after so much pain) :
 {% endfor %}
 ```
 
-displays :
+displays:
 
 ```
-Tag : "responsive" is related to the following books :
+Tag: "responsive" is related to the following books:
 Responsive Web design written by Ethan Marcotte
 ```
 
@@ -1009,7 +1009,7 @@ The simplest loop is an iteration over your model entries. We loop here on the m
   <p>{{ item.title }}</p>
   {% endfor %}
 
-Loop over ```contents.slug_of_your_model```, and for each entry you have access to the custom fields of your model, and also to a list of attributes :
+Loop over ```contents.slug_of_your_model```, and for each entry you have access to the custom fields of your model, and also to a list of attributes:
 
 ![entries attributes](images/entries_attributes.png)
 
@@ -1020,13 +1020,13 @@ Loop over ```contents.slug_of_your_model```, and for each entry you have access 
 
 Logic liquid tags let you put some logic inside your loops.
 
-- if / else / unless : [Reference](http://doc.locomotivecms.com/templates/tags#if-else-unless-section)
-- case : [Reference](http://doc.locomotivecms.com/templates/tags#case-section)
+- if / else / unless: [Reference](http://doc.locomotivecms.com/templates/tags#if-else-unless-section)
+- case: [Reference](http://doc.locomotivecms.com/templates/tags#case-section)
 
-What about empty fields ?
+What about empty fields?
 
-You will certainly have some ```required``` fields, and some not, so how to not display an attribute if it's empty ?
-An empty field will actually return ```nil```, so you can test it in a ```if``` statement :
+You will certainly have some ```required``` fields, and some not, so how to not display an attribute if it's empty?
+An empty field will actually return ```nil```, so you can test it in a ```if``` statement:
 
 ```html
 {% for item in contents.posts %}
@@ -1041,49 +1041,49 @@ An empty field will actually return ```nil```, so you can test it in a ```if``` 
 
 We will see here how to render each type of attribute.
 
-- Simple input :
+- Simple input:
 
-  Nothing tricky here, ```title``` is our simple input field :
+  Nothing tricky here, ```title``` is our simple input field:
 
   ```html
   {% for item in contents.posts %}
-  <p>Title of the post : {{ item.title }}</p>
+  <p>Title of the post: {{ item.title }}</p>
   {% endfor %}
   ```
 
-- Text :
+- Text:
 
   This field has an property ```Text formatting``` HTML or none.
   In the first case, you can edit the content of it with a WYSIWYG editor, in the other case it's just a textarea.
   It doesn't change anything for the rendering, in one case the output will be HTML formatted and in the other it will be a simple long string.
 
-  ```main_text``` is our text field :
+  ```main_text``` is our text field:
 
   ```html
   {% for item in contents.posts %}
-  <p>Content of the post : {{ item.main_text }}</p>
+  <p>Content of the post: {{ item.main_text }}</p>
   {% endfor %}
   ```
 
-- Select :
+- Select:
 
   Display the current value of an entry's select field. You will not be able to list all the select options of a model, just the current value.
 
-  ```category``` is our select field :
+  ```category``` is our select field:
 
   ```html
   {% for item in contents.posts %}
   <ul>
-    <li>Category of the post : {{ item.category }}</li>
+    <li>Category of the post: {{ item.category }}</li>
   </ul>
   {% endfor %
    ```
 
-- Checkbox :
+- Checkbox:
 
   This field is a simple boolean one. So you may use it mainly for templating logic, but you can also display it's raw values ('true' or 'false').
 
-  Here the checkbox field is ```is_a_report``, let's first use it for logic :
+  Here the checkbox field is ```is_a_report``, let's first use it for logic:
 
 
   ```html
@@ -1096,35 +1096,35 @@ We will see here how to render each type of attribute.
   {% endfor %}
    ```
 
-  And let's display it's raw value :
+  And let's display it's raw value:
 
   ```html
   {% for item in contents.posts %}
-    Is it a report ? {{  item.is_a_report }}
+    Is it a report? {{  item.is_a_report }}
   {% endfor %}
    ```
 
-- Date :
+- Date:
 
-  Every entry has by default the properties ```created_at``` and ```updated_at```. But if you need an additional date field, like ```publishing``` in the above example, here is how to render it :
+  Every entry has by default the properties ```created_at``` and ```updated_at```. But if you need an additional date field, like ```publishing``` in the above example, here is how to render it:
 
 
   ```html
   {% for item in contents.posts %}
-    Publishing date : {{  item.publishing }}
+    Publishing date: {{  item.publishing }}
   {% endfor %}
    ```
 
    It will render a raw ISO date, if you need to format it, have a look at the next part "Don't forget Liquid filters".
 
 
-- File :
+- File:
 
-  The only thing you can do with a file field is display its url. You must specify the property ```url``` when you display it, like in the above example with an ```attached``` field :
+  The only thing you can do with a file field is display its url. You must specify the property ```url``` when you display it, like in the above example with an ```attached``` field:
 
   ```html
   {% for item in contents.posts %}
-    Attached file url : {{  item.attached.url }}
+    Attached file url: {{  item.attached.url }}
   {% endfor %}
    ```
 
@@ -1138,7 +1138,7 @@ We will see here how to render each type of attribute.
 
 **Usage of capture and assigns**
 
-- Capture :
+- Capture:
 
   Combine a number of strings into a single string and save it to a variable.
 
@@ -1154,7 +1154,7 @@ We will see here how to render each type of attribute.
 
   [Reference](http://doc.locomotivecms.com/templates/tags#capture-section)
 
-- Assigns :
+- Assigns:
 
   Can be used to assign a value to a variable.
 
@@ -1166,15 +1166,15 @@ We will see here how to render each type of attribute.
 
 Some Liquid filters will allow you to format your entries attributes.
 
-- Resize image :
+- Resize image:
 
-  An image rendered from a file's field is done this way :
+  An image rendered from a file's field is done this way:
   ```html
   <img src="{{  item.attached.url }}">
   ```
 
   But the the DragonFly gem can resize any image on the fly behind the scene.
-  The url to the dynamically resized image is returned. The processing relies on ImageMagick. Here is an example :
+  The url to the dynamically resized image is returned. The processing relies on ImageMagick. Here is an example:
 
   ```html
   <img src="{{  item.attached.url | resize: '100x100' }}">
@@ -1203,30 +1203,30 @@ Some Liquid filters will allow you to format your entries attributes.
 
   [Reference](http://doc.locomotivecms.com/templates/filters#resize-section)
 
-- Format / Localize a date :
+- Format / Localize a date:
 
   If you have a ```date``` field, or if you simply use the properties ```created_at, updated_at``` of an entry, you may wanna format it.
-  Here it is :
+  Here it is:
 
   ```{{ item.created_at | localized_date: '%d %B' }}```
 
-  The ```localized_date``` takes as argument the format string which depends on the current locale. There is also an optional argument 'locale', if you need to force an other locale than the current one :
+  The ```localized_date``` takes as argument the format string which depends on the current locale. There is also an optional argument 'locale', if you need to force an other locale than the current one:
 
   ```{{ item.created_at | localized_date: '%d %B', 'fr' }}```
 
   [Reference](http://doc.locomotivecms.com/templates/filters#localized-date-section)
 
-- Format text :
+- Format text:
 
   There is several filters allowing text formatting,
 
-  - Underscore : Makes an underscored, lowercase form from the expression in the string. [Reference](http://doc.locomotivecms.com/templates/filters#underscore-section)
-  - Dasherize : Replaces underscores with dashes in the string. [Reference](http://doc.locomotivecms.com/templates/filters#dasherize-section)
-  - Multi_line : Inserts a <br /> tag in front of every \n linebreak character. [Reference](http://doc.locomotivecms.com/templates/filters#multi-line-section)
-  - Concat : Append strings passed in args to the input [Reference](http://doc.locomotivecms.com/templates/filters#concat-section)
-  - Textile : Convert a Markdown-formatted string into HTML. [Reference](http://doc.locomotivecms.com/templates/filters#textile-section)
+  - Underscore: Makes an underscored, lowercase form from the expression in the string. [Reference](http://doc.locomotivecms.com/templates/filters#underscore-section)
+  - Dasherize: Replaces underscores with dashes in the string. [Reference](http://doc.locomotivecms.com/templates/filters#dasherize-section)
+  - Multi_line: Inserts a <br /> tag in front of every \n linebreak character. [Reference](http://doc.locomotivecms.com/templates/filters#multi-line-section)
+  - Concat: Append strings passed in args to the input [Reference](http://doc.locomotivecms.com/templates/filters#concat-section)
+  - Textile: Convert a Markdown-formatted string into HTML. [Reference](http://doc.locomotivecms.com/templates/filters#textile-section)
 
-- Embed Flash tag : Embed a flash movie into a page given an url [Reference](http://doc.locomotivecms.com/templates/filters#flash-section)
+- Embed Flash tag: Embed a flash movie into a page given an url [Reference](http://doc.locomotivecms.com/templates/filters#flash-section)
 
 
 **Displaying Grouped By**
@@ -1239,7 +1239,7 @@ In frontend, you also have this feature. Here is an example, using the ```posts`
 
   {% for cat in contents.posts.group_by_category %}
     <br>
-    {{ cat.name }} :
+    {{ cat.name }}:
     {% for entrie in cat.entries %}
       <br>
       {{ entrie.title }}
@@ -1247,9 +1247,9 @@ In frontend, you also have this feature. Here is an example, using the ```posts`
   {% endfor %}
 
 
-The syntax is the following : ```contents.slug_of_your_model.group_by_field_name```, with the field name corresponding to the ```select``` type field you group by entries.
+The syntax is the following: ```contents.slug_of_your_model.group_by_field_name```, with the field name corresponding to the ```select``` type field you group by entries.
 
-As explained in the documentation : *The method returns an ordered Array of Hash. Each Hash stores 2 keys, name which is the name of the option and entries which is the list of the ordered entries for the option. The Array is ordered based on the order of the options set in the back-office.*
+As explained in the documentation: *The method returns an ordered Array of Hash. Each Hash stores 2 keys, name which is the name of the option and entries which is the list of the ordered entries for the option. The Array is ordered based on the order of the options set in the back-office.*
 
 So we first loop on each value of the ```select``` type field, which is "cat", and then for each "cat" we loop on each entries of this category.
 
@@ -1264,13 +1264,13 @@ LocomotiveCMS comes with a paginate tag.
       {% endfor %}
   {% endpaginate %}
 
-It creates a ```paginate``` objects with the following attributes :
+It creates a ```paginate``` objects with the following attributes:
 
 ![paginate attributes](images/paginate_object.png)
 
 There are all pretty straightforward, but let's have a look at the ```parts``` attributes, it seems there is everything here to build the navigation of your paginated pages.
 
-Here is an example of how we would to it :
+Here is an example of how we would to it:
 
   {% paginate contents.posts by 1 %}
     {% for post in paginate.collection %}
@@ -1288,7 +1288,7 @@ Here is an example of how we would to it :
   {% endpaginate %}
 
 
-Well, that's fine if you want have the control of your markup, but if you don't, there is the filter ```default_pagination``` for rendering a clean pagination navigation without pain :
+Well, that's fine if you want have the control of your markup, but if you don't, there is the filter ```default_pagination``` for rendering a clean pagination navigation without pain:
 
   {% paginate contents.posts by 1 %}
     {% for post in paginate.collection %}
@@ -1298,11 +1298,11 @@ Well, that's fine if you want have the control of your markup, but if you don't,
     {{ paginate | default_pagination, next: 'Next', previous: 'Previous' }}
   {% endpaginate %}
 
-Which takes 2 arguments :
+Which takes 2 arguments:
 
 ![paginate filter](images/paginate_filter.png)
 
-And which renders this kind of markup :
+And which renders this kind of markup:
 
 ```html
 <div class="pagination ">
@@ -1314,9 +1314,9 @@ And which renders this kind of markup :
 </div>
 ```
 
-[Reference : paginate](http://doc.locomotivecms.com/templates/tags#paginate-section)
+[Reference: paginate](http://doc.locomotivecms.com/templates/tags#paginate-section)
 
-[Reference : default paginate](http://doc.locomotivecms.com/templates/filters#default-pagination-section)
+[Reference: default paginate](http://doc.locomotivecms.com/templates/filters#default-pagination-section)
 
 
 #### Scope results
@@ -1343,17 +1343,17 @@ https://github.com/locomotivecms/engine/issues/449
 
 The idea of a templatized page is that's a view of one instance of a model you specify in the ```templatized``` option of a page.
 
-Here is how it works : let's say you have the model ```posts```, the one from the previous [Basics](#models_basics) subchapter. You need to have the following pages structure :
+Here is how it works: let's say you have the model ```posts```, the one from the previous [Basics](#models_basics) subchapter. You need to have the following pages structure:
 
 ![templatized page archi](images/templatize_archi.png)
 
-With :
+With:
 
-- **posts** page :
+- **posts** page:
 
   The templatized mechanism expects to have "models" under a parent folder which makes more sense for SEO purpose. This page can be used for instance to list the products, or could be a redirect page.
 
-  So for the example, here are the parameters of the page, but there isn't anything specific here :
+  So for the example, here are the parameters of the page, but there isn't anything specific here:
 
   ![templatized page posts](images/templatize_posts1.png)
 
@@ -1364,9 +1364,9 @@ With :
   ![templatized page posts liquid](images/templatize_posts_liquid.png)
 
 
-- **template** page :
+- **template** page:
 
-  The template of the templatized model is defined as follow :
+  The template of the templatized model is defined as follow:
 
   ![templatized page 1](images/templatize_template1.png)
 
@@ -1376,7 +1376,7 @@ With :
 
   Set the parameter ```Templatized``` as true, and select bellow the model you want to templatize.
 
-  To follow the example, we will display a full post, using directly the ```posts``` instance (notice the singular) :
+  To follow the example, we will display a full post, using directly the ```posts``` instance (notice the singular):
 
   ![templatized page template liquid](images/templatize_template_liquid.png)
 
@@ -1386,14 +1386,14 @@ With :
 
 
 <a name="models_public_submission"></a>
-### Recipe : Public Submission
+### Recipe: Public Submission
 
 https://github.com/locomotivecms/engine/blob/master/features/public/contact_form.feature
 
 
 
 ////
-Very big form, session problem hack : https://github.com/locomotivecms/engine/issues/418
+Very big form, session problem hack: https://github.com/locomotivecms/engine/issues/418
 
 <a name="models_yaml"></a>
 ### Recipe: Create models and content via YAML
@@ -1528,7 +1528,7 @@ https://groups.google.com/forum/#!topic/locomotivecms/r7f-54gSg0U
 <a name="locomotive_rails_app"></a>
 ## Using LocomotiveCMS in an existing Rails app
 
-sources :
+sources:
 
 https://groups.google.com/d/topic/locomotivecms/suBZggHJ0OI/discussion
 
@@ -1544,12 +1544,12 @@ https://groups.google.com/d/topic/locomotivecms/ZMhKPe78pZM/discussion
 <a name="multi_sites"></a>
 ### Using multi-sites
 
-notes :
+notes:
 
 Well, each site is fully independent form the others: they have different pages, domains, content types, ...etc. The ONLY part they have in common is that they have a "administration" access point based on a common domain name as explained in the guide (http://doc.locomotivecms.com/guides/multisites) but since we can use domain aliases, it's not a problem at all.
 
 
-dev locally : https://groups.google.com/d/topic/locomotivecms/nmgDaCdb7Ts/discussion
+dev locally: https://groups.google.com/d/topic/locomotivecms/nmgDaCdb7Ts/discussion
 
 <a name="export_site"></a>
 ### Export site
@@ -1560,7 +1560,7 @@ In LocomotiveCMS 1.0, there was an export feature, which allowed to export the s
 
 Pushing a site (build with LocomotiveCMS Editor) is described in [this](#locomotive_editor) section and [here](http://doc.locomotivecms.com/editor/deployment).
 
-For now, there isn't any pulling script, but still it's possible, following these steps :
+For now, there isn't any pulling script, but still it's possible, following these steps:
 
 - Get an auth token
 
@@ -1577,19 +1577,19 @@ For now, there isn't any pulling script, but still it's possible, following thes
 
 - Use the token to retrieve needed data.
 
-  Pages :
+  Pages:
 
   ```
   curl 'http://mysite.com/locomotive/api/pages.json?auth_token=dtsjkqs1TJrWiSiJt2gg'
   ```
 
-  Content Types :
+  Content Types:
 
   ```
   curl 'http://mysite.com/locomotive/api/content_types.json?auth_token=dtsjkqs1TJrWiSiJt2gg'
   ```
 
-  Content Entries ( assume we have a "Projects" model ) :
+  Content Entries ( assume we have a "Projects" model ):
 
   ```
   curl 'http://mysite.com/locomotive/api/content_types/projects/entries.json?auth_token=dtsjkqs1TJrWiSiJt2gg'
@@ -1604,16 +1604,16 @@ LocomotiveCMS handles internationalization easily. We will see how set up severa
 
 #### Setup
 
-First thing first, choose the languages you want support in the *Settings* panel :
+First thing first, choose the languages you want support in the *Settings* panel:
 
 ![internationalization panel](images/internationalization_1.png)
 
 Select your locales and save.
-If you go back in the 'Contents' tab, you will see a locale switcher at the right part of the menu :
+If you go back in the 'Contents' tab, you will see a locale switcher at the right part of the menu:
 
 ![internationalization locale switcher](images/internationalization_2.png)
 
-There is several kind of content you may wanna translate :
+There is several kind of content you may wanna translate:
 
 - HTML template of pages
 - editable contents in pages
@@ -1623,28 +1623,28 @@ There is several kind of content you may wanna translate :
 
 A page has as many HTML templates as locales in the app. You can
 
-Let's try it : create a page named ```lambda``` with the following template :
+Let's try it: create a page named ```lambda``` with the following template:
 
 ```html
 That's it, a page in english
 The editable custom text in english.
 ```
 
-At ```test.herokuapp.com/lambda``` we have :
+At ```test.herokuapp.com/lambda``` we have:
 
 ```html
 That's it, a page in english
 The editable custom text in english.
 ```
 
-Go back to the admin, and switch to the French locale. You will see that LocomotiveCMS indicates pages which are not yet translated :
+Go back to the admin, and switch to the French locale. You will see that LocomotiveCMS indicates pages which are not yet translated:
 
 ![internationalizationeng page](images/internationalization_untranslated.png)
 
-**Notice :
+**Notice:
 Pages which are not translated are not available in front, they generates a 404.**
 
-Edit the ```lambda``` page in French this time, we will edit both the template and the custom content (editable_short_text) :
+Edit the ```lambda``` page in French this time, we will edit both the template and the custom content (editable_short_text):
 
 ```html
 Et voila, une page en francais.
@@ -1653,7 +1653,7 @@ Le contenu editable en francais.
 {% endeditable_short_text %}
 ```
 
-And now at ```test.herokuapp.com/fr/lambda``` (notice the locale prefix) we have the translated page :
+And now at ```test.herokuapp.com/fr/lambda``` (notice the locale prefix) we have the translated page:
 
 ```html
 Et voila, une page en francais.
@@ -1665,18 +1665,18 @@ Since the default locale of this app is English, the lambda page url is ```test.
 
 #### Models translation
 
-Let's create a dummy model with a string field :
+Let's create a dummy model with a string field:
 
 ![internationalization model](images/internationalization_model.png)
 
-See the ```localized``` checkbox ? It's all it takes to localize a model field ! You can localize the fields you want, but not necessarily all custom fields.
+See the ```localized``` checkbox? It's all it takes to localize a model field ! You can localize the fields you want, but not necessarily all custom fields.
 
 Let's create an entry in english, save it, and switch to French, and translate this entry.
 
-**Notice :
+**Notice:
 LocomotiveCMS indicates which entries are not translated, as it does with pages. But unlike pages, a model entry which isn't translated yet will still appears in front.**
 
-Then we go back to our lambda page and display the dummy models entries. Don't forget to update the template in both locales :
+Then we go back to our lambda page and display the dummy models entries. Don't forget to update the template in both locales:
 
 ```html
 {% for item in contents.dummy %}
@@ -1699,13 +1699,13 @@ Mon entree en francais.
 
 **Locale switcher in front**
 
-The first thing you may need is a locale switcher, allowing front users to choose their language. There is a Liquid tag for that : ```{% locale_switcher %}```. The params of the tag are explained [here](http://doc.locomotivecms.com/templates/tags#locale-switcher-section).
+The first thing you may need is a locale switcher, allowing front users to choose their language. There is a Liquid tag for that: ```{% locale_switcher %}```. The params of the tag are explained [here](http://doc.locomotivecms.com/templates/tags#locale-switcher-section).
 
 **Variables**
 
-There is also global variables relating to locales ([reference](http://doc.locomotivecms.com/templates/objects)) :
+There is also global variables relating to locales ([reference](http://doc.locomotivecms.com/templates/objects)):
 
-- ```locale``` gives is the current locale, which you may use in logical statements :
+- ```locale``` gives is the current locale, which you may use in logical statements:
 
   ```html
   {% if locale == 'en' %}
@@ -1714,7 +1714,7 @@ There is also global variables relating to locales ([reference](http://doc.locom
   Contenu francais
   {% endif %}
   ```
-- ```locales``` is an array of the site's locales :
+- ```locales``` is an array of the site's locales:
 
   ```html
   {% for loc in locales %}
@@ -1727,7 +1727,7 @@ There is also global variables relating to locales ([reference](http://doc.locom
 
 **Duplicated templates**
 
-LocomotiveCMS's behavior allows a different page's template for each locale. So let's say you have developed your site in English only, everything is developed, and then you add a locale : pages will be duplicated in the new locale.
+LocomotiveCMS's behavior allows a different page's template for each locale. So let's say you have developed your site in English only, everything is developed, and then you add a locale: pages will be duplicated in the new locale.
 
 It's not possible to specify one template for every locales, so if you don't want to duplicate every page template at each code update, it could be easier to validate the site in one locale, and then at the end, adding the other locales.
 
@@ -1735,7 +1735,7 @@ It's not possible to specify one template for every locales, so if you don't wan
 
 Your template will have relative links to the app page, but if you don't localize them, they will point to the default localized page, and not the current localized one.
 
-Making them localized is pretty simple, just add the locale prefix :
+Making them localized is pretty simple, just add the locale prefix:
 ```html
 <a href="/{{ locale }}/target-page">click here</a>
 ```
@@ -1744,11 +1744,11 @@ This way, each link will point to the current localized page.
 
 #### Add a language
 
-LocomotiveCMS comes with the following available locales :
+LocomotiveCMS comes with the following available locales:
 
 ![internationalization locales](images/internationalization_locales.png)
 
-What if you need for example to have a Chinese locale ? There is 2 things to consider with locales :
+What if you need for example to have a Chinese locale? There is 2 things to consider with locales:
 
 - back-office language
 - url prefixes (for SEO purpose)
@@ -1761,7 +1761,7 @@ There is a way to add custom locale without pain.
 
   ```
   # default locale (for now, only en, de, fr, pt-BR, it and nb are supported)
-  #config.default_locale = :en
+  #config.default_locale =:en
 
   # available locales suggested to "localize" a site. You will have to pick up at least one among that list.
   #config.site_locales = %w{en tw}
@@ -1772,16 +1772,16 @@ There is a way to add custom locale without pain.
   The second one specifies the list of available locales for the site. That's where you will add your custom locale. You can also remove all unwanted locales, so that they don't appear in the admin panel.
 
 
-3. When your custom locale is added in the LocomotiveCMS config, you need to add the .png image of the locale flag in the application assets, which will appears in the admin panel (if you don't, it will raises an error) :
+3. When your custom locale is added in the LocomotiveCMS config, you need to add the .png image of the locale flag in the application assets, which will appears in the admin panel (if you don't, it will raises an error):
 
   ![internationalization locales](images/internationalization_locales.png)
 
   The .png image is 24x24px. Put this file in the main Rails app, in the folder ```/app/assets/images/locomotive/icons/flags/```. The name of the image must be your locale's name, for example Taiwanese flag must be named ```tw.png```.
 
-4. Precompile your assets : ```bundle exec rake assets:precompile```
+4. Precompile your assets: ```bundle exec rake assets:precompile```
 5. Add translations.
 
-  LocomotiveCMS backoffice have the following translation files (with LOCALE being the shortname of each locale) :
+  LocomotiveCMS backoffice have the following translation files (with LOCALE being the shortname of each locale):
 
   ```
   admin_ui.LOCALE.yml
@@ -1794,7 +1794,7 @@ There is a way to add custom locale without pain.
 
   The first thing to know is i18n will look for ```default_locale``` translations if there isn't any translation for the current locale. In the case you want for example a backoffice in English for every locale, you don't need to add any custom translation, since it will fallback to the ```default_locale```.
 
-  The second thing is, in every case, you need to add the translation of your custom locale name in the ```admin_ui.LOCALE.yml``` above the others :
+  The second thing is, in every case, you need to add the translation of your custom locale name in the ```admin_ui.LOCALE.yml``` above the others:
 
   ```
   locales:
@@ -1811,11 +1811,11 @@ There is a way to add custom locale without pain.
 
   Add here your custom locale, in order to display it in the backoffice panel.
 
-  *To summarize :*
+  *To summarize:*
 
   If your custom locales doesn't have to be translated in the admin, define your ```default_locale``` and just add your custom locale name translation in ```admin_ui.DEFAULT_LOCALE.yml```.
 
-  If you want translate the backoffice in your custom locale, copy these files :
+  If you want translate the backoffice in your custom locale, copy these files:
 
   ```
   admin_ui.LOCALE.yml
@@ -1825,7 +1825,7 @@ There is a way to add custom locale without pain.
   flash.LOCALE.yml
   formtastic.LOCALE.yml
   ```
-  and rename them with your custom locale shortname. Translate their content, and don't forget to add your custom locale name above in ```admin_ui.LOCALE.yml``` :
+  and rename them with your custom locale shortname. Translate their content, and don't forget to add your custom locale name above in ```admin_ui.LOCALE.yml```:
 
   ```
   locales:
@@ -1845,26 +1845,26 @@ There is a way to add custom locale without pain.
 ### Customize TinyMCE
 
 The ```<head>``` section of the admin layout is structured as follow (full code [here](https://github.com/locomotivecms/engine/blob/master/app/views/locomotive/shared/_head.html.haml
-)) :
+)):
 
 ```haml
 %meta
   …
 %script
   …
-= yield :head
+= yield:head
 = render 'locomotive/shared/main_app_head'
 ```
 
-There is an empty partial meant to be overridden for additional css or js : ```_main_app_head.html.haml``` located in ```app/views/locomotive/shared/``` of the engine directory. Since it's the last one called in the ```<head>```, every css or js added here will override the other ones.
+There is an empty partial meant to be overridden for additional css or js: ```_main_app_head.html.haml``` located in ```app/views/locomotive/shared/``` of the engine directory. Since it's the last one called in the ```<head>```, every css or js added here will override the other ones.
 
-How override this partial ? Well, LocomotiveCMS is build as a Rails engine, so you just need to create it in your main Rails app, because when a view is called, Rails first look for it in the main app, and then in the matching engine. We will add here a javascript tag referring to our customized TinyMCE configuration.
+How override this partial? Well, LocomotiveCMS is build as a Rails engine, so you just need to create it in your main Rails app, because when a view is called, Rails first look for it in the main app, and then in the matching engine. We will add here a javascript tag referring to our customized TinyMCE configuration.
 
-Let's proceed :
+Let's proceed:
 
 1. Within your main Rails app, create a partial at the ```app/views/locomotive/shared/_main_app_head.html.haml``` location (create the folders if they don't exist).
 
-2. Edit the ```_main_app_head.html.haml``` file and insert this : ```= javascript_include_tag  'locomotive_misc'```
+2. Edit the ```_main_app_head.html.haml``` file and insert this: ```= javascript_include_tag  'locomotive_misc'```
 
 3. Create a javascript file at the ```app/assets/javascripts/locomotive_misc.js.coffee``` and fill in with ```window.LocomotiveCMS.tinyMCE.defaultSettings.valid_elements = "<your option>"```
 
@@ -1885,7 +1885,7 @@ https://groups.google.com/d/topic/locomotivecms/vfxun5pOvEY/discussion
 <a name="locomotive_api"></a>
 ### LocomotiveCMS API
 
-notes récupérées du google group :
+notes récupérées du google group:
 
 I looked at the api source and it appears currently you can only query the entire model using it's slug which returns all entries in the model
 
